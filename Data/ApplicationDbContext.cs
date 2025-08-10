@@ -12,6 +12,8 @@ public class ApplicationDbContext : IdentityDbContext<User>
   {
   }
 
+  public DbSet<ScheduledCheck> ScheduledChecks { get; set; }
+
   protected override void OnModelCreating(ModelBuilder builder)
   {
     base.OnModelCreating(builder);
@@ -41,8 +43,10 @@ public class ApplicationDbContext : IdentityDbContext<User>
         .HasConversion(boolToInt);
         });
 
-    // If any of these are also wrong in your DB, map them too:
-    // - LockoutEnd is normally timestamptz (DateTimeOffset?) in Postgres.
-    // - AccessFailedCount is int already (leave as-is).
+  builder.Entity<ScheduledCheck>(entity =>
+  {
+    entity.HasIndex(e => e.Domain).IsUnique();
+    entity.Property(x => x.Domain).IsRequired().HasMaxLength(255);
+  });
   }
 }

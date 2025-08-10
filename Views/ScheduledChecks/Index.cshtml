@@ -1,0 +1,9 @@
+@model List<UptimeMonitor.Models.ScheduledCheck>
+
+<h1>Your Scheduled Checks</h1>
+
+<partial name="ListChecks" model="Model" />
+
+<div class="mt-3 d-flex w-100 justify-content-end">
+  <a class="btn btn-primary" asp-area="" asp-controller="ScheduledChecks" asp-action="Create">New check</a>
+</div>
