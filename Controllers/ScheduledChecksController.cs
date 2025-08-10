@@ -80,6 +80,31 @@ public class ScheduledChecksController : Controller
     return RedirectToAction(nameof(Index));
   }
 
+  [HttpPost]
+  public async Task<IActionResult> Delete(int id)
+  {
+    Debugger.Break();
+    var user = await _userManager.GetUserAsync(User);
+
+    var check = await _context.ScheduledChecks
+      .Include(sc => sc.Users)
+      .FirstOrDefaultAsync(sc => sc.Id == id);
+    Debugger.Break();
+
+    if (check == null) {
+      return NotFound();
+    }
+
+    check.Users.Remove(user!);
+    if (!check.Users.Any()) {
+      _context.ScheduledChecks.Remove(check);
+    }
+
+    await _context.SaveChangesAsync();
+
+    return RedirectToAction(nameof(Index));
+  }
+
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult Error()
   {

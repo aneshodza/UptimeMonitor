@@ -15,9 +15,15 @@ ViewData["Title"] = "Create Check";
   </div>
 
   <div class="card-footer">
-    <div class="d-flex justify-content-between">
-      <button type="submit" class="btn btn-primary">Create</button>
-      <a class="btn btn-secondary" asp-area="" asp-controller="ScheduledChecks" asp-action="Index">Back</a>
+    <div class="d-flex gap-2">
+      <a class="btn btn-danger" asp-area="" asp-controller="ScheduledChecks" asp-action="Index">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back
+      </a>
+      <button type="submit" class="btn btn-success">
+        <i class="fa-solid fa-check"></i>
+        Create
+      </button>
     </div>
   </div>
 </form>
