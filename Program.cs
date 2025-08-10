@@ -18,6 +18,14 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+if (args.Contains("--seed"))
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    await SeedData.InitializeAsync(services);
+    return;
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
