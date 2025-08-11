@@ -21,16 +21,20 @@
               </button>
             </form>
           </div>
-          <div class="d-flex">
+          <div class="d-flex align-items-center">
             <span class="user-count me-4 d-flex align-items-center gap-1">
               <i class="fa-solid fa-users"></i>
               @scheduledCheck.Users.Count()
             </span>
             @foreach (var check in scheduledCheck.Checks)
             {
-              <span class="status-badge status-@(check.StatusCode / 100)">
+              <span class="status-badge status-@(check.StatusCode / 100)" title="@check.StatusCode">
               </span>
             }
+            <span class="ms-auto d-flex align-items-center gap-1">
+              @($"{scheduledCheck.UptimePercentage:F4}%")
+              <i class="fa-solid fa-server status-@(scheduledCheck.Checks.Last().StatusCode / 100)"></i>
+            </span>
           </div>
         </div>
       </div>
