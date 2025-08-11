@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using UptimeMonitor.Data;
 using UptimeMonitor.Models;
-using Microsoft.AspNetCore.Identity;
+using UptimeMonitor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +16,19 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<CheckRunner>();
+builder.Services.AddHostedService<CheckRunner>();
+
 var app = builder.Build();
+
+if (args.Contains("--run-checks"))
+{
+    using var scope = app.Services.CreateScope();
+    var runner = scope.ServiceProvider.GetRequiredService<CheckRunner>();
+    await runner.RunChecksAsync(CancellationToken.None);
+    return;
+}
 
 if (args.Contains("--seed"))
 {

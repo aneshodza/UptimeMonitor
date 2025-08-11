@@ -1,0 +1,26 @@
+.status-badge {
+  height: 20px;
+  width: 12px;
+  border-radius: 2px;
+  margin-right: 3px;
+}
+
+.status-badge.status-1 {
+  background-color: var(--bs-info);
+}
+
+.status-badge.status-2 {
+  background-color: var(--bs-success);
+}
+
+.status-badge.status-3 {
+  background-color: var(--bs-primary);
+}
+
+.status-badge.status-4 {
+  background-color: var(--bs-warning);
+}
+
+.status-badge.status-5 {
+  background-color: var(--bs-danger);
+}

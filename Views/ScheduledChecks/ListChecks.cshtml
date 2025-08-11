@@ -9,16 +9,29 @@
   }
   else
   {
-    foreach (var check in Model)
+    foreach (var scheduledCheck in Model)
     {
       <div class="list-group-item list-group-item-action">
-        <div class="d-flex justify-content-between align-items-center">
-          @check.Domain
-          <form asp-area="" asp-controller="ScheduledChecks" asp-action="Delete" asp-route-id="@check.Id" method="post" class="m-0">
-            <button type="submit" class="btn btn-danger">
-            <i class="fa-solid fa-trash"></i>
+        <div class="d-flex flex-column w-100 gap-2">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            @scheduledCheck.Domain
+            <form asp-area="" asp-controller="ScheduledChecks" asp-action="Delete" asp-route-id="@scheduledCheck.Id" method="post" class="m-0">
+              <button type="submit" class="btn btn-danger">
+                <i class="fa-solid fa-trash"></i>
               </button>
-          </form>
+            </form>
+          </div>
+          <div class="d-flex">
+            <span class="user-count me-4 d-flex align-items-center gap-1">
+              <i class="fa-solid fa-users"></i>
+              @scheduledCheck.Users.Count()
+            </span>
+            @foreach (var check in scheduledCheck.Checks)
+            {
+              <span class="status-badge status-@(check.StatusCode / 100)">
+              </span>
+            }
+          </div>
         </div>
       </div>
     }

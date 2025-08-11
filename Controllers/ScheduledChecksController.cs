@@ -34,12 +34,14 @@ public class ScheduledChecksController : Controller
       return Challenge(); // redirect to login if not authenticated
     }
 
-    // Eager load ScheduledChecks for the current user
-    var checks = await _context.ScheduledChecks
+    var scheduledChecks = await _context.ScheduledChecks
       .Where(sc => sc.Users.Any(u => u.Id == user.Id))
+      .Include(sc => sc.Checks
+          .OrderByDescending(c => c.CreatedAt)
+          .Take(10))
+      .Include(sc => sc.Users)
       .ToListAsync();
-
-    return View(checks);
+    return View(scheduledChecks);
   }
 
   [HttpGet]
@@ -83,13 +85,11 @@ public class ScheduledChecksController : Controller
   [HttpPost]
   public async Task<IActionResult> Delete(int id)
   {
-    Debugger.Break();
     var user = await _userManager.GetUserAsync(User);
 
     var check = await _context.ScheduledChecks
       .Include(sc => sc.Users)
       .FirstOrDefaultAsync(sc => sc.Id == id);
-    Debugger.Break();
 
     if (check == null) {
       return NotFound();
