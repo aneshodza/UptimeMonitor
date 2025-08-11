@@ -1,8 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model List<UptimeMonitor.Models.ScheduledCheck>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>The uptime monitor helps you keep track of your websites.</p>
+    
+    <h2>Scheduled Checks</h2>
+    <partial name="~/Views/ScheduledChecks/ListChecks.cshtml" model="Model" />
 </div>
