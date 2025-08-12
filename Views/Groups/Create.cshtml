@@ -1,0 +1,30 @@
+@model UptimeMonitor.Models.Group
+@{
+ViewData["Title"] = "Create Group";
+}
+
+<h1>Create a new Group</h1>
+
+<form asp-action="Create" method="post" class="card">
+  <div class="card-body">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+      <label asp-for="GroupName" class="form-label">Name</label>
+      <input type="text" asp-for="GroupName" class="form-control" />
+      <span asp-validation-for="GroupName" class="text-danger"></span>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <div class="d-flex gap-2">
+      <a class="btn btn-danger" asp-area="" asp-controller="Groups" asp-action="Index">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back
+      </a>
+      <button type="submit" class="btn btn-success">
+        <i class="fa-solid fa-check"></i>
+        Create
+      </button>
+    </div>
+  </div>
+</form>

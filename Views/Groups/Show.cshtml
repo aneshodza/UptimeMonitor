@@ -1,0 +1,35 @@
+@model UptimeMonitor.Models.Group
+
+<h1>@Model.GroupName</h1>
+
+<h4 class="mb-4">Group Code: @Model.GroupCode</h4>
+
+<h4>Members</h4>
+<div class="list-group mb-2">
+  @if (Model.Members.Count == 0)
+  {
+    <div class="list-group-item list-group-item-action">
+      No scheduled checks found.
+    </div>
+  }
+  else
+  {
+    foreach (var member in Model.Members)
+    {
+      <div class="list-group-item list-group-item-action display d-flex justify-content-between">
+        <span>
+          @member.Firstname @member.Lastname
+        </span>
+        @if (Model.OwnerId == @member.Id)
+        {
+          <span class="badge rounded-pill text-bg-primary">Owner</span>
+        }
+      </div>
+    }
+  }
+</div>
+
+<a class="btn btn-danger" asp-area="" asp-controller="Groups" asp-action="Index">
+  <i class="fa-solid fa-arrow-left"></i>
+  Back
+</a>
